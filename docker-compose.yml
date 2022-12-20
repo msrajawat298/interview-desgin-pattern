@@ -1,0 +1,10 @@
+---
+version: '3'
+services:
+
+  cli:
+    image: php:8.0-cli
+#    working_dir: /home/tagattitude/TagPay
+    volumes:
+      - .:/home/interview
+#      - ~/.composer/cache:/root/.composer/cache
