@@ -65,10 +65,10 @@ Deux commandes permettent d'interragir avec :
 Un client se rend chez un commerçant et souhaite régler ses achats par carte bancaire.
 Il positionne la carte sur le terminal de paiement et une requête est envoyée au système pour valider la transaction.
 
+- Le montant fourni en entrée est strictement positif
+- La devise des comptes impactés et du paiement doivent être identique
 - Le compte du client est débité du montant de la transaction.
 - Le compte du commerçant est crédité du montant de la transaction.
-- La devise des comptes impactés et du paiement doivent être identique
-- Le montant fourni en entrée est strictement positif
 - La date de la transaction est la date courante au moment du paiement
 
 **Attention** : les montants sont modélisés en centimes. Donc `100` vaut `1.00 €`.
