@@ -37,7 +37,7 @@ ou
 Il s'agit d'une base de donnée sous le format d'un fichier contenant des objets PHP sérialisés.
 Le fichier s'appelle `db` à la racine du projet.
 
-Deux commandes permettent d'interragir avec :
+Deux commandes permettent d'interagir avec :
 - `php bin/console.php database:dump` ou `docker-compose run console database:dump` : pour visualiser son contenu
 - `php bin/console.php database:clear` ou `docker-compose run console database:clear` : pour la remettre dans l'état initial
 
@@ -49,13 +49,13 @@ Deux commandes permettent d'interragir avec :
 - Le comportement décrit doit être implémenté dans la méthode `PayByCardCommandHandler::handle()`
 - Le projet expose une commande CLI  (`PayByCardCli`) permettant de lancer le use case.
 - Le projet expose une classe `PayByCardCommandHandlerTest` et un fichier `phpunit.xml` permettant de lancer les tests unitaires du projet (et calculer le code coverage)
-- 
+
 
 #### Contraintes
 - La classe `PayByCardCommand` ne doit pas être modifiée
 - Le nom et les paramètres fournis à la méthode `PayByCardCommandHandler::handle()` ne doivent pas être modifiés
 - Le comportement et la signature des méthodes existantes de la classe `InMemoryDatabase` ne doivent pas être modifiés. Il est possible d'y ajouter de nouvelles méthodes si besoin
-- Ormis les classes spécifiées ci-dessus, n'importe quelle autre classe peut être modifiée/ajoutée/supprimée
+- Hormis les classes spécifiées ci-dessus, n'importe quelle autre classe peut être modifiée/ajoutée/supprimée
 
 
 ### Exercice 1 : Pay by card
@@ -65,17 +65,17 @@ Deux commandes permettent d'interragir avec :
 Un client se rend chez un commerçant et souhaite régler ses achats par carte bancaire.
 Il positionne la carte sur le terminal de paiement et une requête est envoyée au système pour valider la transaction.
 
-- Le montant fourni en entrée est strictement positif
-- La devise des comptes impactés et du paiement doivent être identique
+- Le montant fourni en entrée est strictement positif.
+- La devise des comptes impactés et du paiement doivent être identiques.
 - Le compte du client est débité du montant de la transaction.
 - Le compte du commerçant est crédité du montant de la transaction.
-- La date de la transaction est la date courante au moment du paiement
+- La date de la transaction est la date courante au moment du paiement.
 
 **Attention** : les montants sont modélisés en centimes. Donc `100` vaut `1.00 €`.
 
 ##### Critères d'acceptance
 
-Le solde des comptes est mis à jour en fonction des conditions de la transaction.
+Le solde des comptes est mis à jour en fonction des paramètres de la transaction.
 La transaction est historisée ainsi que les mouvements réalisés sur les comptes.
 
 ##### Exemple 1
