@@ -22,7 +22,7 @@ $container->set(PersistentDatabase::class, function () {
                     new Account(ExistingAccounts::BANK_EUR, new Amount(-2150_00, "EUR")),
                     new Account(ExistingAccounts::CLIENT_EUR, new Amount(150_00, "EUR")),
                     new Account(ExistingAccounts::MERCHANT_EUR, new Amount(2000_00, "EUR")),
-                    new Account(ExistingAccounts::BANK_USD, new Amount(-1825_00, "EUR")),
+                    new Account(ExistingAccounts::BANK_USD, new Amount(-1825_00, "USD")),
                     new Account(ExistingAccounts::CLIENT_USD, new Amount(75_00, "USD")),
                     new Account(ExistingAccounts::MERCHANT_USD, new Amount(1750_00, "USD")),
             ],
