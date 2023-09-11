@@ -4,18 +4,69 @@ Ce projet contient un ensemble de tests techniques pour les candidats à un post
 
 [Documentation interne associée (n'est pas destinée au candidat)](https://tagpay.atlassian.net/wiki/spaces/RD/pages/2526445703/Interview+d+veloppeur)
 
-# Usage
 
-## Pré-requis
+# Pré-requis
 
 - installer PHPStorm
 - installer Docker et/ou PHP 8.0 avec composer
 
-## Installation
+# Installation
 
 - clonez le projet : `git clone git@gitlab.com:skaleet-public/interview/interview.git`
 - positionnez vous dans le dossier : `cd interview`
 - installez les dépendances `composer install` ou `docker-compose run install`
+
+# Exercice #1 :  Pay by card
+
+## Description du use case
+
+Un client se rend chez un commerçant et souhaite régler ses achats par carte bancaire.
+Il positionne la carte sur le terminal de paiement et une requête est envoyée au système pour valider la transaction.
+
+Vous devez implémenter la logique métier qui se déclenche lorsqu'un tel appel arrive sur le système.
+Voici la liste des règles de gestions à implémenter :
+- Le montant fourni en entrée est strictement positif.
+- La devise des comptes impactés et du paiement doivent être identiques.
+- Le compte du client est débité du montant de la transaction.
+- Le compte du commerçant est crédité du montant de la transaction.
+- La date de la transaction est la date courante au moment du paiement.
+
+**Attention** : les montants sont modélisés en centimes. Donc `100` vaut `1.00 €`.
+
+## Critères d'acceptance
+
+Le solde des comptes est mis à jour en fonction des paramètres de la transaction.
+La transaction est historisée ainsi que les mouvements réalisés sur les comptes.
+
+## Exemple 1
+
+- Un client a un solde de 150€
+- Un commerçant a un solde de 2 500€
+- La banque a un solde 10 000€
+
+Le client fait un paiement de 15.36 €
+
+|                 | Compte du client | Compte du commerçant |
+|-----------------|------------------|----------------------|
+| *solde initial* | 150 €            | 2 500 €              |
+| *paiement*      | -15.36 €         | +15.36 €             |
+| *solde final*   | 134.64 €         | 2 515.36 €           |
+
+
+# Environnement existant
+
+## Classes à disposition
+- Le comportement décrit doit être implémenté dans la méthode `PayByCardCommandHandler::handle()`
+- Le projet expose une commande CLI  (`PayByCardCli`) permettant de lancer le use case.
+- Le projet expose une classe `PayByCardCommandHandlerTest` et un fichier `phpunit.xml` permettant de lancer les tests unitaires du projet (et calculer le code coverage)
+
+
+## Contraintes
+- La classe `PayByCardCommand` ne doit pas être modifiée
+- Le nom et les paramètres fournis à la méthode `PayByCardCommandHandler::handle()` ne doivent pas être modifiés
+- Le comportement et la signature des méthodes existantes de la classe `InMemoryDatabase` ne doivent pas être modifiés. Il est possible d'y ajouter de nouvelles méthodes si besoin
+- Hormis les classes spécifiées ci-dessus, n'importe quelle autre classe peut être modifiée/ajoutée/supprimée
+
 
 ## Lancer les tests
 
@@ -41,59 +92,12 @@ Deux commandes permettent d'interagir avec :
 - `php bin/console.php database:dump` ou `docker-compose run console database:dump` : pour visualiser son contenu
 - `php bin/console.php database:clear` ou `docker-compose run console database:clear` : pour la remettre dans l'état initial
 
-## Spécification : Transaction Processing
 
-### Environnement existant
+# Exercice #2 : pour aller plus loin, gestion des frais
+Cet exercice n'est pas a réaliser lors du test technique.
+Il est là pour un contexte de training interne.
 
-#### Classes à disposition
-- Le comportement décrit doit être implémenté dans la méthode `PayByCardCommandHandler::handle()`
-- Le projet expose une commande CLI  (`PayByCardCli`) permettant de lancer le use case.
-- Le projet expose une classe `PayByCardCommandHandlerTest` et un fichier `phpunit.xml` permettant de lancer les tests unitaires du projet (et calculer le code coverage)
-
-
-#### Contraintes
-- La classe `PayByCardCommand` ne doit pas être modifiée
-- Le nom et les paramètres fournis à la méthode `PayByCardCommandHandler::handle()` ne doivent pas être modifiés
-- Le comportement et la signature des méthodes existantes de la classe `InMemoryDatabase` ne doivent pas être modifiés. Il est possible d'y ajouter de nouvelles méthodes si besoin
-- Hormis les classes spécifiées ci-dessus, n'importe quelle autre classe peut être modifiée/ajoutée/supprimée
-
-
-### Exercice 1 : Pay by card
-
-#### Description du use case
-
-Un client se rend chez un commerçant et souhaite régler ses achats par carte bancaire.
-Il positionne la carte sur le terminal de paiement et une requête est envoyée au système pour valider la transaction.
-
-- Le montant fourni en entrée est strictement positif.
-- La devise des comptes impactés et du paiement doivent être identiques.
-- Le compte du client est débité du montant de la transaction.
-- Le compte du commerçant est crédité du montant de la transaction.
-- La date de la transaction est la date courante au moment du paiement.
-
-**Attention** : les montants sont modélisés en centimes. Donc `100` vaut `1.00 €`.
-
-##### Critères d'acceptance
-
-Le solde des comptes est mis à jour en fonction des paramètres de la transaction.
-La transaction est historisée ainsi que les mouvements réalisés sur les comptes.
-
-##### Exemple 1
-
-- Un client a un solde de 150€
-- Un commerçant a un solde de 2 500€
-- La banque a un solde 10 000€
-
-Le client fait un paiement de 15.36 €
-
-|                 | Compte du client | Compte du commerçant |
-|-----------------|------------------|----------------------|
-| *solde initial* | 150 €            | 2 500 €              |
-| *paiement*      | -15.36 €         | +15.36 €             |
-| *solde final*   | 134.64 €         | 2 515.36 €           |
-
-### Exercice 2 : Pay by card : pour aller plus loin
-#### Description du use case
+## Description du use case
 
 Par rapport au use case développé dans l'exercice 1, ajouter les règles de gestion suivantes :
 
@@ -104,7 +108,7 @@ Par rapport au use case développé dans l'exercice 1, ajouter les règles de ge
 - Le solde du commerçant ne peut pas être supérieur à 3 000 €
 - Le solde du commerçant ne peut pas être inférieur à -1 000 €
 
-##### Exemple 2
+### Exemple 2
 
 - Un client a un solde de 150€
 - Un commerçant a un solde de 2 500€
