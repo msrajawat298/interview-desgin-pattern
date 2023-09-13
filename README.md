@@ -16,6 +16,16 @@ Ce projet contient un ensemble de tests techniques pour les candidats à un post
 - positionnez vous dans le dossier : `cd interview`
 - installez les dépendances `composer install` ou `docker-compose run install`
 
+# Critères d'évaluation
+
+Pour cet exercice votre priorité est de développer un code lisible, testé et maintenable.
+Nous évaluerons vos connaissances des principes SOLID, vos compétences en tests automatisés, architecture hexagonale et les tactical patterns du Domain Driven Design.
+
+Il n'est pas nécessaire d'avoir implémenté toutes les règles de gestion pour réussir ce test.
+Nous préférons un candidat qui n'implémente pas toutes les règles, mais qui livre un code dont il est fier.
+
+
+
 # Exercice #1 :  Pay by card
 
 ## Description du use case

@@ -13,6 +13,13 @@
 - Navigate to the directory: `cd interview`
 - Install dependencies: `composer install` or `docker-compose run install`
 
+# Evaluation Criteria
+For this exercise, your priority is to develop code that is readable, tested, and maintainable.
+We will assess your knowledge of SOLID principles, your skills in automated testing, hexagonal architecture, and tactical patterns of Domain Driven Design.
+
+It is not necessary to have implemented all business rules to pass this test.
+We prefer a candidate who does not implement all the rules but delivers code they are proud of.
+
 ## Exercise #1: Pay by Card
 
 ### Use Case Description
