@@ -22,6 +22,30 @@ class TransactionLog
         $this->date = $date;
         $this->accounting = $accounting;
     }
+    
+    /**
+     * Get the transaction ID.
+     */
+    public function getId(): string
+    {
+        return $this->id;
+    }
 
+    /**
+     * Get the date and time of the transaction.
+     */
+    public function getDate(): DateTimeImmutable
+    {
+        return $this->date;
+    }
 
+    /**
+     * Get the list of accounting entries involved in this transaction.
+     *
+     * @return AccountingEntry[]
+     */
+    public function getAccountingEntries(): array
+    {
+        return $this->accounting;
+    }
 }
